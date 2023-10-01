@@ -17,6 +17,13 @@ There are 3 notebooks of interest:
   4. compares the model against a random baseline algorithm with `recall@k` and `Mean Reciprocal Rank`
 
 
+### Service
+
+`service.py` contains a minimal `flask` service with 2 endpoints:
+
+* `GET:api/v1/popular`, returns the 10 most popular `aid`s
+* `GET:api/v1/recommendations/<aid>`, returns 10 recommendations based on a single `aid`
+
 # Summary
 
 The `Word2Vec` model scores around `4%` in the `recall@20` score. The random model almost always score a flat `0%`. We observe that the vocabulary (number of unique product IDs) is very large, wheighing in at `657940` which presents a challenging scenario compared to smaller vocabularies. Furthermore, the distribution is very tail-heavy:
