@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, g
+import time
 from gensim.models import KeyedVectors
 import json
 
@@ -9,6 +10,19 @@ wv = KeyedVectors.load("word2vec.wordvectors", mmap='r')
 
 print("Reading ten most popular products...")
 ten_most_popular = list(json.load(open("ten_most_popular.json", "r")).keys())
+
+
+@app.before_request
+def before_request():
+    g.start = time.time()
+
+@app.after_request
+def after_request(response):
+    diff = time.time() - g.start
+    if response.response:
+        response.headers["X-Response-Time"] = str(diff)
+    print(f"Request took {diff*1000} milliseconds")
+    return response
 
 
 @app.route("/api/v1/recommendations/<aid>")
