@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, g
 import time
 from gensim.models import KeyedVectors
